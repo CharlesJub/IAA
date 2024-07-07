@@ -110,7 +110,7 @@ Box Plots:
 ggplot(data = ames, aes(y = Sale_Price/1000, x = Central_Air, fill = Central_Air)) + 
 	geom_boxplot() + 
 	labs(y = "Sales Price (Thousands $)", x = "Central Air") +
-	scale_fill_brewer(palette="Accent
+	scale_fillk_brewer(palette="Accent
 ```
 
 
@@ -121,11 +121,9 @@ ggplot(data = ames, aes(y = Sale_Price/1000, x = Central_Air, fill = Central_Air
 
 ## Labs
 ### Lab 1
-> [!Lab 1 PDF]-
-> [![[Lab1.pdf]]](![[Lab1.pdf]])
+![Lab 1 PDF Solutions](Lab1.pdf)
+[R Markdown for Lab 1](Lab1.Rmd)
 
-![R Markdown for Lab 1](Lab1.Rmd)
-![R Markdown HMTL for Lab 1](Lab1.nb.html)
 ### Lab 2 
 
 
