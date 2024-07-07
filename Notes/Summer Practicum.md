@@ -21,3 +21,7 @@ Due: July 24th, 2024
 - **Did the presenting group make specific recommendations and provide adequate support for their decision?**
 - What was the overall quality of visuals?
 
+# BLUF Ideas
+- Is there a rush hour for airports?
+	- If yes, can anything be done to reduce the delay impact in these times
+- Does engine type impact delays
