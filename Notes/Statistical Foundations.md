@@ -124,7 +124,7 @@ ggplot(data = ames, aes(y = Sale_Price/1000, x = Central_Air, fill = Central_Air
 > [!Lab 1 PDF]-
 > ![[Lab1.pdf]]
 
-[R Markdown for Lab 1](C:/Users/charl/Desktop/IAA/Attachments/Statistical Foundations Labs/Lab1.Rmd)
+[R Markdown for Lab 1]("Attachments/Statistical Foundations Labs/Lab1.Rmd")
 ### Lab 2 
 
 
