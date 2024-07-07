@@ -8,8 +8,8 @@ output: html_notebook
 library(UsingR) 
 data(normtemp)
 ```
-1. Use the normtemp dataset to answer the following: 
-	a. Determine the following statistics for the variable temperature:
+## Use the normtemp dataset to answer the following: 
+### Determine the following statistics for the variable temperature:
 	
 		Minimum: 96.30
 		
@@ -22,14 +22,51 @@ data(normtemp)
 summary(normtemp)
 sd(normtemp$temperature)
 ```
-b. Does temperature appear to be normally distributed?
+### Does temperature appear to be normally distributed?
 
-  Yes, the distribution of temperature looks to be Normally distributed visually.
+Yes, the distribution of temperature looks to be Normally distributed visually.
 ```{r message=FALSE, warning=FALSE}
 # install.packages("ggpubr")
 library(ggpubr)
 gghistogram(normtemp$temperature) # Use ggpubr gghistogram to speed up graph making
 ggqqplot(normtemp$temperature)
+```
+### Create box plots for temperature. Are there any outliers? Display a reference line at 98.6. Does the median body temperature seem to be 98.6 degrees?
+  
+No, the median temperature seems to be lower than 98.6. There does seem to be 3 outliers, two lower and one upper
+```{r}
+ggboxplot(normtemp$temperature) +
+  geom_hline(yintercept = 98.6) +
+  coord_flip()
+```
+## Using the Ameshousing dataset from our in-class examples, run some distributional analysis on Sale_Price, Log(Sale_Price), and Gr_Liv_Area
+### Create histograms of these three variables
+```{r warning=FALSE}
+library(AmesHousing)
+ames <- make_ordinal_ames()
+gghistogram(ames$Sale_Price, y='density', fill = 'blue', alpha = 0.5) +
+  geom_density(alpha = 0.5)
+gghistogram(log(ames$Sale_Price), y='density', fill = 'blue', alpha = 0.5) +
+  geom_density(alpha = 0.5)
+gghistogram(ames$Gr_Liv_Area, y='density', fill = 'blue', alpha = 0.5) +
+  geom_density(alpha = 0.5)
+```
+### Create a QQ Plot for both Sale_Price and Log(Sale_Price). Based on these exploratory procedures, which version of the price information (Sale_Price or Log(Sale_Price)) would you say is closer to being normally distributed?
+
+The log of Sale_Price looks closer to Normal than the unchanged Sale_Price distribution.
+```{r}
+ggqqplot(ames$Sale_Price)
+ggqqplot(log(ames$Sale_Price))
+```
+
+## Using the Ameshousing dataset from our in-class examples, determine the following: 
+### What type of variables are each of these columns (Nominal, Ordinal, or Continuous/Quantitative)? Keep in mind that the way they are represented in the R dataset may not be appropriate, so you should make this determination using your own judgement based on the data you are looking at. 
+- Overall_Qual: Ordinal
+- Lot_Shape: Ordinal
+- Heating_QC: Ordinal
+- Lot_Area: Quantitative
+```{r}
+str(ames)
 ```
 
 
