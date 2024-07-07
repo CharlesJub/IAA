@@ -20,6 +20,8 @@
 [[Communication]]
 [[Statistical Foundations]]
 
+## Work
+[[Summer Practicum]]
 
 # Fall
 
