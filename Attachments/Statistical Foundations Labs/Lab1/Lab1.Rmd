@@ -1,9 +1,10 @@
 ---
-title: "R Notebook"
-output: html_notebook
+title: "Lab 1"
+authors: "Charlie Jubera"
+output: pdf_document
 ---
 
-```{r warning=FALSE}
+```{r warning=FALSE, message=FALSE}
 # install.packages('UsingR') 
 library(UsingR) 
 data(normtemp)
