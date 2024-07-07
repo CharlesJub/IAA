@@ -1,0 +1,36 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r warning=FALSE}
+# install.packages('UsingR') 
+library(UsingR) 
+data(normtemp)
+```
+1. Use the normtemp dataset to answer the following: 
+	a. Determine the following statistics for the variable temperature:
+	
+		Minimum: 96.30
+		
+		Maximum: 100.80
+		
+		Mean: 98.25
+		
+		Standard Deviation: 0.7331832
+```{r}
+summary(normtemp)
+sd(normtemp$temperature)
+```
+b. Does temperature appear to be normally distributed?
+
+  Yes, the distribution of temperature looks to be Normally distributed visually.
+```{r message=FALSE, warning=FALSE}
+# install.packages("ggpubr")
+library(ggpubr)
+gghistogram(normtemp$temperature) # Use ggpubr gghistogram to speed up graph making
+ggqqplot(normtemp$temperature)
+```
+
+
+

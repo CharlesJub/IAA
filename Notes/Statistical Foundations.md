@@ -115,8 +115,14 @@ ggplot(data = ames, aes(y = Sale_Price/1000, x = Central_Air, fill = Central_Air
 
 
 
+## Breakout 
+### Breakout 2
+### Breakout 3
+
 ## Labs
 ### Lab 1
+> [!Lab 1 PDF]-
+> ![[Lab1.pdf]]
 
 ### Lab 2 
 
