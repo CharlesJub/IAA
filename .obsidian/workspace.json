@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Notes/IAA Homepage.md",
+                "file": "Notes/Statistical Foundations.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Notes/IAA Homepage.md",
+                "file": "Notes/Statistical Foundations.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Notes/IAA Homepage.md",
+                "file": "Notes/Statistical Foundations.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Notes/IAA Homepage.md"
+                "file": "Notes/Statistical Foundations.md"
               }
             }
           }
@@ -149,17 +149,17 @@
   },
   "active": "7372c497f91cb4c9",
   "lastOpenFiles": [
+    "Notes/IAA Homepage.md",
     "README.md",
     "IAA/README.md",
     "IAA",
     "Home.md",
-    "Notes/IAA Homepage.md",
     "Notes/Statistical Foundations.md",
-    "Resources/Statistical Foundations SLides/Model Selection.pdf",
-    "Resources/Statistical Foundations SLides/More Complex ANOVA Regression.pdf",
-    "Resources/Statistical Foundations SLides/2 - Introduction to ANOVA and Regression.pdf",
-    "Resources/Statistical Foundations SLides/1 - Introduction to Statistics-1.pdf",
-    "Resources/Statistical Foundations SLides",
+    "Resources/Statistical Foundations Slides/Model Selection.pdf",
+    "Resources/Statistical Foundations Slides/More Complex ANOVA Regression.pdf",
+    "Resources/Statistical Foundations Slides/2 - Introduction to ANOVA and Regression.pdf",
+    "Resources/Statistical Foundations Slides/1 - Introduction to Statistics-1.pdf",
+    "Resources/Statistical Foundations Slides",
     "Notes/The Art of Data Science.md",
     "Resources/Zotero Color Coding.md",
     "Templates/Zotero Import.md",
