@@ -5,7 +5,7 @@ Video: https://youtu.be/Pp3vJr-g8tE
 2. What experiences/information/resources do you bring with you to the Institute that help you receive feedback
 3. What other information/resources would help you with understanding and receiving feedback
 4. How are you getting in your own way of receiving and understanding feedback?
-5. This book is about receiving feedback, but after reading it, how can it inform the way you deliever feedback
+5. This book is about receiving feedback, but after reading it, how can it inform the way you deliver feedback
 
 ## Terms
 Blind spots:
