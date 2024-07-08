@@ -1,0 +1,35 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+library(ggpubr)
+
+cafe <- read_tsv("https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/cafeteria")
+```
+```{r}
+mod.1 <- lm(Sales~., data = cafe)
+ggqqplot(mod.1$residuals)
+ggplot(mod.1, aes(.fitted, .resid)) +
+  geom_jitter()
+```
+```{r}
+AIC(lm(Sales~Dispensers, data = cafe))
+AIC(lm(Sales~Dispensers + I(Dispensers^2), data = cafe)) # Best
+AIC(lm(Sales~Dispensers + I(Dispensers^2) + I(Dispensers^3), data = cafe))
+AIC(lm(Sales~Dispensers + I(Dispensers^2) + I(Dispensers^3) + I(Dispensers^4), data = cafe))
+
+```
+```{r}
+best.mod <- lm(Sales~Dispensers + I(Dispensers^2), data = cafe)
+ggqqplot(best.mod$residuals)
+ggplot(best.mod, aes(.fitted, .resid)) +
+  geom_jitter()
+```
+
+
+
+
