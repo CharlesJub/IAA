@@ -123,7 +123,13 @@ ggplot(data = ames, aes(y = Sale_Price/1000, x = Central_Air, fill = Central_Air
 ### Lab 1
 ![Lab 1 PDF Solutions](Lab1.pdf)
 [R Markdown for Lab 1](Lab1.Rmd)
-
+#### Lab 1 Questions:
+The variable body temp appears to be normally distributed.
+- True
+Log(Sale_Price) looks closer to Normality than Sale_Price.
+- True
+Which of the following types of variables _best_ describes the column **Lot_Shape**?
+- Ordinal
 ### Lab 2 
 
 
