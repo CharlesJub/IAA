@@ -163,3 +163,29 @@ Is there a significant difference in air travel in the summer months versus all 
 ### Notes
 
 ### Labs
+
+## Diagnostics
+### Slides
+![[5-Diagnostics.pdf]]
+### Notes
+Always important to visualize the graphs to understand more about your model
+
+#### Examining Residuals
+Remember the assumptions of Linear Regression:
+- X has linear relationship with Y
+- Random error is normally distributed
+- Constant variance of errors
+- Errors are independent
+- No perfect collinearity
+
+Plot residuals: residuals on the y-axis and predicted value on x-axis
+![[Pasted image 20240708131243.png]]\
+A good residual plot:
+- Residuals are randomly scattered about zero
+- No patterns found
+- Model form appears to be adequate
+
+Quadratic Needed
+![[Pasted image 20240708131404.png]]
+
+> If you do have higher order terms in the model, you should center the variable (i.e. take each value and subtract the mean) - Helps with multicollinearity 
