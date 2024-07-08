@@ -131,8 +131,15 @@ Log(Sale_Price) looks closer to Normality than Sale_Price.
 Which of the following types of variables _best_ describes the column **Lot_Shape**?
 - Ordinal
 ### Lab 2 
-
-
+![Lab 2 PDF Solutions](Lab2/Lab2.pdf)
+[R Markdown for Lab 2](Lab2.Rmd)
+#### Lab Questions
+In Question 1 you were asked to explore the _NormTemp_ dataset and calculate a confidence interval for the true mean of the variable **bodytemp**. Please select the appropriate response from the selections below.
+- The 95% Confidence Interval for BodyTemp is [98.12, 98.38]. We are 95% confident that this interval contains the mean of body temperature, meaning that if we were to re-sample the data and re-compute this interval many times, we'd expect the intervals we create to contain the true mean of body temperature 95% of the time.
+Is there any difference (alpha=0.05) in bodytemp between the genders recorded in this dataset?
+- There is sufficient evidence to argue that the average body temperature between the given genders is different.
+Is there a significant difference in air travel in the summer months versus all other months at a 0.05 level of significance?
+- yes
 
 # Introduction to ANOVA and Regression
 ### Slides
