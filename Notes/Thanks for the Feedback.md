@@ -18,3 +18,11 @@ Switchtrack
 Triggers (truth, relationship, identity)
 Wiring (baseline, swing, sustain, & recovery)
 Wrong spotting
+
+## PDF
+[[DouglasStoneSheilaHeen_SelectionsfromThanksfort_152188.pdf]]
+### Notes
+A lot more things are feedback than we realize
+
+Feedback is important, but constantly considered a painful experience 
+
