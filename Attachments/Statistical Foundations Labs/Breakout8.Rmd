@@ -29,6 +29,7 @@ ggplot(mod.1, aes(.fitted, .resid)) +
 ```
 
 
+
 ```{r}
 empty.model <- lm(mpg~1, data=lab.dat)
 full.model <- lm(mpg~.^2 + I(wt)^2+ I(hp)^2+ I(cyl)^2, data=lab.dat)
@@ -55,6 +56,37 @@ ggqqplot(back.model$residuals)
 ggplot(back.model, aes(.fitted, .resid)) +
   geom_point()
 ```
+
+```{r}
+library(MASS)
+
+n.index=seq(1,nrow(lab.dat))
+
+ggplot(back.model,aes(x=n.index,y=studres(back.model)))+
+  geom_point(color="orange")+geom_line( y=3)+
+  labs(title = "Studentized Resid",x="Observation",y="Studentized Resid")
+```
+```{r}
+
+D.cut=4/(nrow(lab.dat)-3) 
+
+ggplot(back.model,aes(x=n.index,y=cooks.distance(back.model)))+
+  geom_point(color="orange")+geom_line( y=D.cut)+
+  labs(title = "Cook's D",x="Observation",y="Cook's Distance")
+```
+```{r}
+ggplot(back.model,aes(x=studres(back.model),y=cooks.distance(back.model)))+
+  geom_point(color="orange")+geom_hline( yintercept=D.cut)+ geom_vline(xintercept = 3)
+```
+
+```{r}
+car::vif(back.model)
+```
+
+
+
+
+
 
 
 
