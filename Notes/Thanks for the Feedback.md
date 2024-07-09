@@ -26,3 +26,4 @@ A lot more things are feedback than we realize
 
 Feedback is important, but constantly considered a painful experience 
 
+Receiving feedback well does not mean always taking the feedback. It is more about improving how you understand the feedback
