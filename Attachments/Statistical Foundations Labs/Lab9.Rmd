@@ -5,6 +5,7 @@ output: html_notebook
 
 ```{r}
 library(AppliedPredictiveModeling)
+library(ggplot2)
 data(FuelEconomy)
 ```
 
@@ -12,13 +13,51 @@ data(FuelEconomy)
 dat.lab <- cars2010 %>% select(c("EngDispl","Transmission", "AirAspirationMethod",
                                  "TransLockup","TransCreeperGear","DriveDesc",
                                  "IntakeValvePerCyl","CarlineClassDesc","VarValveLift", "FE"))
+n.index=seq(1,nrow(dat.lab))
 
 mod.1 <- lm(FE~.,data=dat.lab)
 ```
 
 ```{r}
+ggplot(mod.1, aes(n.index, rstudent(mod.1))) +
+  geom_point() +
+  geom_hline(yintercept = 3) +
+  geom_hline(yintercept = -3)
+```
+```{r}
+D.cut=4/(nrow(dat.lab)-3) 
+
+ggplot(mod.1, aes(n.index, cooks.distance(mod.1))) +
+  geom_point() +
+  geom_hline(yintercept = D.cut)
+```
+```{r}
+df.cut=1 
+ggplot(mod.1,aes(x=n.index,y=dffits(mod.1)))+
+  geom_point(color="or ange")+geom_line(y=df.cut)+
+  geom_line(y=-df.cut)+
+  labs(title = "DFFITS",x="Observation",y="DFFITS" )
+```
+```{r}
+ggplot(mod.1,aes(x=rstudent(mod.1),y=dffits(mod.1)))+
+  geom_jitter(color="orange")+geom_vline(xintercept=3)+
+  geom_hline(yintercept = 1)+
+  labs(title = "Studentized vs. DFFITS",x="Studentized",y="DFFITS" )
+```
+```{r}
+max(mod.1$residuals)
+```
+```{r}
+max(cooks.distance(mod.1))
 
 ```
+
+```{r}
+sum((dffits(mod.1) > 1) & (rstudent(mod.1) > 3 | rstudent(mod.1) < -3))
+```
+
+
+
 
 
 
