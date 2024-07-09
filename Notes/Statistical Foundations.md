@@ -189,3 +189,60 @@ Quadratic Needed
 ![[Pasted image 20240708131404.png]]
 
 > If you do have higher order terms in the model, you should center the variable (i.e. take each value and subtract the mean) - Helps with multicollinearity 
+
+
+#### Correlated Error Terms 
+Know the source of your data
+
+Auto-correlation: testing for correlation overtime 
+	Visual: Residuals![[Pasted image 20240709131030.png]]
+	Statistically: Durbin-Watson statistic
+
+Handling correlated error terms
+	If correlated due to time, preform time series
+	If correlated due to clustering, preform a hierarchical model
+	Longitudinal analysis/panel data
+
+#### Influential points and outliers
+Outliers - point with a large standardized residuals
+Leverage Points - point that falls outside the normal range  in the x-space and have a large influence on the regression line
+
+Diagnostic Statistics:
+- Standardized residuals (good for detecting outliers)
+- Studentized residuals (good for detecting outliers) 
+	- Studentized residuals are obtained by dividing the residuals by their standard errors
+	- |SR| > 3 for data sets with a relatively large number of observations
+- Cook’s D (good for detecting influential observations) 
+	- Measures the difference in the regression estimates when the ith observation is left out. 
+	- A suggested cutoff is: (other cutoffs suggested: 4/n, 0.5, 1)
+- DFFITS (good for detecting influential observations) 
+	- DFFITS$_i$ measures the impact that the $i$th observation has on the predicted value.![[Pasted image 20240709133137.png]]
+- DFBETAS (good for detecting influential observations) 
+	- Measure of change in the jth parameter estimate with deletion of the ith observation 
+	- One DFBETA per parameter per observation
+	- ![[Pasted image 20240709133302.png]]
+- Hat values (good for detecting influential observations)
+	- ![[Pasted image 20240709133202.png]]
+
+##### Exploring Influential and Outlier Observations:
+1. Recheck the data to ensure that no transcription or data entry errors occurred. 
+2. If the data is valid, one possible explanation is that the model is not adequate. 
+	A model with higher-order terms, such as polynomials and interactions between the variables, might be necessary to fit the data well. 
+	Nonlinear model 
+3. Determine the robustness of the inference by running the analysis both with and without these observations. 
+4. Robust Regression (Covered Later in Program) 
+5. Weighted Least Squares (WLS)
+
+#### Collinearity
+Looking at correlation matrix of predictors
+VIF: VIF over 10 indicate potential correlation 
+If you have categorical variables focus on (GVIF^1/2df)^2 
+![[Pasted image 20240709135245.png]]
+##### Dealing with Multicollinearity
+Exclude redundant independent variables
+Redefine variables
+Use biased regression techniques
+Be sure that you have centered any independent variables in polynomial recession models 
+
+
+![[Pasted image 20240709135125.png]]
