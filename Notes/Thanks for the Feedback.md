@@ -36,6 +36,8 @@ Feedback is difficult because we know it is important but it we also want to be 
 
 Three types of  Triggers:
  - Truth Trigger: You don't believe the feedback is true
+	 - Prone to wrong spotting
+	 - 
  - Relationship Trigger: You don't think the feedback can come from this person
  - Identity Trigger: You
 
@@ -54,6 +56,7 @@ When you don't include evaluation, the receiver wont know where they stand and w
 Appreciation might seem skippable because you feel the feedback receiver is already getting appreciation through other avenues, but it is important to explicitly state appreciation. Good appreciation is specific, tailored to the receiver, and authentic.
 
 Be thoughtful about what type of feedback you need and what type of feedback you're being offered, and get aligned 
+Truth Triggers:
 
 Wrong-spotting is looking for what is wrong with the feedback instead of understanding the feedback 
 
