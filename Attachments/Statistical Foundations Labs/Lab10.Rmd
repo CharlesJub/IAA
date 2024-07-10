@@ -15,11 +15,16 @@ ames <- ames %>% mutate(id = row_number())
 train <- ames %>% sample_frac(0.7)
 test <- anti_join(ames, train, by = 'id')
 ```
+```{r}
+summary(train)
+```
+
+
 
 ## Check Correlations
 ```{r set ames_num}
 train_num <- train %>% 
-  select_if(is.numeric) %>% 
+  # select_if(is.numeric) %>% 
   select(-c("id"))
 ```
 
@@ -27,17 +32,121 @@ train_num <- train %>%
 cor.dat <- train_num %>% correlation::correlation()
 cor.dat %>% filter((cor.dat$r > .5) | (cor.dat$r < -.5))
 ```
+
+
 ```{r}
-library(ggpubr)
-train$Gr_Liv_Area %>% gghistogram() 
+lm.1 <- lm(Sale_Price~. - Garage_Cond - Bsmt_Cond - MS_SubClass - Exterior_2nd - 
+             First_Flr_SF- Second_Flr_SF-Low_Qual_Fin_SF-Condition_1-Condition_2 - 
+             Garage_Qual -Utilities - Misc_Feature - BsmtFin_Type_1, data=train_num)
+# summary(lm.1)
+alias(lm.1)$Complete
+```
+
+```{r}
+vif(lm.1)
+```
+
+```{r}
+# Longitude, Latitude
+train_sel <-  train %>% select(-c("Longitude", "Latitude", "BsmtFin_Type_2", "Overall_Qual","Exter_Qual",
+                                  "BsmtFin_Type_1","Bsmt_Qual", "Heating","Bsmt_Full_Bath","Bsmt_Half_Bath",
+                                  "Bsmt_Exposure", "Garage_Cars", "Kitchen_AbvGr", "Bedroom_AbvGr", "Three_season_porch", "Enclosed_Porch",
+                                  "Pool_Area", "Open_Porch_SF", "Wood_Deck_SF", "Sale_Type"))
+empty.mod <- lm(Sale_Price ~ 1, data = train_sel)
+full.mod <- lm(Sale_Price ~ ., data = train_sel)
+'for.mod <- step(empty.mod,
+                scope = list(
+                  lower = empty.mod,
+                  upper = full.mod
+                ),
+                direction = "both",
+                steps = 12,
+                trace = FALSE)'
+```
+```{r}
+for.mod_12 <- step(empty.mod,
+                scope = list(
+                  lower = empty.mod,
+                  upper = full.mod
+                ),
+                direction = "forward",
+                steps = 12,
+                trace = FALSE)
+
+```
+```{r}
+for.mod_12 %>% summary()
+```
+```{r}
+for.mod_12 %>% plot()
+```
+
+```{r}
+form.transform <- log(Sale_Price) ~ Neighborhood + Gr_Liv_Area + Kitchen_Qual + 
+    MS_SubClass + Year_Built + Roof_Matl + Total_Bsmt_SF + Misc_Feature + 
+    Bsmt_Unf_SF + Overall_Cond + Sale_Condition + Mas_Vnr_Area
+
+lm.transform <- lm(form.transform, data=train_sel)
+lm.transform %>% summary()
+```
+```{r}
+lm.transform %>% plot()
+```
+```{r}
+ggplot(lm.transform ,aes(x=hatvalues(lm.transform),y=rstudent(lm.transform)))+
+  geom_point()+
+  geom_hline(yintercept=3)+
+  geom_vline(xintercept=1) +
+  labs(x="Hat Values",y="Residuals")
+```
+```{r}
+D.cut=4/(nrow(train_sel)-11) 
+n.index=seq(1,nrow(train_sel))
+
+ggplot(lm.transform, aes(n.index, cooks.distance(lm.transform))) +
+  geom_point() +
+  geom_hline(yintercept = D.cut)
 ```
 
 
 ```{r}
-lm.1 <- lm(Sale_Price~., data=train_num)
-summary(lm.1)
-# vif()
+train_sel$a <- (cooks.distance(lm.transform) > D.cut) & (rstudent(lm.transform) > 3 | rstudent(lm.transform) < -3)
+
 ```
+
+```{r}
+train_filtered <-  train_sel %>% filter(a != TRUE)
+train_filtered %>% nrow()
+```
+
+```{r}
+lm.1 <- lm(form.transform, data = train_filtered)
+summary(lm.1) %>% print()
+lm.1 %>% plot()
+```
+```{r}
+train_filtered <- train_filtered %>% select(-c("id","a"))
+empty.mod <- lm(Sale_Price ~ 1, data = train_filtered)
+full.mod <- lm(Sale_Price ~ ., data = train_filtered)
+
+fil.for.mod_12 <- step(empty.mod,
+                scope = list(
+                  lower = empty.mod,
+                  upper = full.mod
+                ),
+                direction = "forward",
+                steps = 12,
+                trace = FALSE)
+
+```
+
+
+
+
+
+
+
+
 
 
 
