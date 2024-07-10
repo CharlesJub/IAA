@@ -37,7 +37,6 @@ Feedback is difficult because we know it is important but it we also want to be 
 Three types of  Triggers:
  - Truth Trigger: You don't believe the feedback is true
 	 - Prone to wrong spotting
-	 - 
  - Relationship Trigger: You don't think the feedback can come from this person
  - Identity Trigger: You
 
@@ -75,6 +74,11 @@ Blind spots are amplified by:
 - Impact-Intent Gap: We judge ourselves by our intentions, while other judge us by our impact on them
 
 
+We can be triggered by who is giving us the feedback. 
+- What we think about the giver: Are they credible? Do we trust them? Did they deliver our feedback with good judgement and skill?
+- How we feel treated by the giver: Do we feel accepted? Appreciated?
+
+Switchtrack conversations: conversations where we have two topics on the table and talk past each other. To counter, spot the two topics and give each topic its own track
 
 
 
