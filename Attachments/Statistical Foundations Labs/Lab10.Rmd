@@ -1,0 +1,43 @@
+---
+title: "Lab 10"
+output: html_notebook
+---
+
+```{r load lib and data train test split}
+library(tidyverse)
+library(AmesHousing)
+library(car)
+
+ames <- make_ordinal_ames()
+
+set.seed(123)
+ames <- ames %>% mutate(id = row_number())
+train <- ames %>% sample_frac(0.7)
+test <- anti_join(ames, train, by = 'id')
+```
+
+## Check Correlations
+```{r set ames_num}
+train_num <- train %>% 
+  select_if(is.numeric) %>% 
+  select(-c("id"))
+```
+
+```{r corr table}
+cor.dat <- train_num %>% correlation::correlation()
+cor.dat %>% filter((cor.dat$r > .5) | (cor.dat$r < -.5))
+```
+```{r}
+library(ggpubr)
+train$Gr_Liv_Area %>% gghistogram() 
+```
+
+
+```{r}
+lm.1 <- lm(Sale_Price~., data=train_num)
+summary(lm.1)
+# vif()
+```
+
+
+
