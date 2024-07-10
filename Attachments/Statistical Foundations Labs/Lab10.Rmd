@@ -126,6 +126,9 @@ lm.1 %>% plot()
 ```
 ```{r}
 train_filtered <- train_filtered %>% select(-c("id","a"))
+```
+
+```{r}
 empty.mod <- lm(Sale_Price ~ 1, data = train_filtered)
 full.mod <- lm(Sale_Price ~ ., data = train_filtered)
 
@@ -139,6 +142,128 @@ fil.for.mod_12 <- step(empty.mod,
                 trace = FALSE)
 
 ```
+```{r}
+
+sale_price <- train_filtered %>% select(c("Sale_Price"))
+train_filtered_cent <- as.data.frame(lapply(train_filtered %>% select(-c("Sale_Price")), function(x) {
+  if(is.numeric(x)) scale(x, scale = FALSE) else x
+}))
+
+train_filtered_cent$Sale_Price <- sale_price$Sale_Price
+```
+
+```{r}
+empty.mod <- lm(Sale_Price ~ 1, data = train_filtered_cent)
+full.mod <- lm(Sale_Price ~ ., data = train_filtered_cent)
+
+fil.for.mod_12 <- step(empty.mod,
+                scope = list(
+                  lower = empty.mod,
+                  upper = full.mod
+                ),
+                direction = "forward",
+                steps = 12,
+                trace = FALSE)
+
+```
+```{r}
+fil.for.mod_12 %>% plot()
+```
+```{r}
+train_filtered_cent$a <- (cooks.distance(fil.for.mod_12) > D.cut) & (rstudent(fil.for.mod_12) > 3 | rstudent(fil.for.mod_12) < -3)
+train_filtered_cent2 <- train_filtered_cent %>% filter(a != TRUE)
+```
+
+```{r}
+empty.mod <- lm(Sale_Price ~ 1, data = train_filtered_cent2)
+full.mod <- lm(Sale_Price ~ ., data = train_filtered_cent2)
+
+for.1 <- step(empty.mod,
+                scope = list(
+                  lower = empty.mod,
+                  upper = full.mod
+                ),
+                direction = "forward",
+                steps = 12,
+                trace = FALSE)
+```
+
+```{r}
+for.1 %>% summary()
+formula.2 <-  log(Sale_Price) ~ Neighborhood + Gr_Liv_Area + Kitchen_Qual + 
+    Total_Bsmt_SF + MS_SubClass + Bsmt_Unf_SF + Year_Built + 
+    Overall_Cond + Mas_Vnr_Area + Sale_Condition + Pool_QC + 
+    Garage_Area
+log.lm.2 <- lm(formula.2, data=train_filtered_cent2)
+log.lm.2 %>% plot()
+```
+```{r}
+vif(log.lm.2)
+```
+
+
+
+
+
+```{r}
+empty.mod <- lm(log(Sale_Price) ~ 1, data = train_filtered_cent)
+full.mod <- lm(log(Sale_Price) ~ ., data = train_filtered_cent)
+
+for.2 <- step(empty.mod,
+                scope = list(
+                  lower = empty.mod,
+                  upper = full.mod
+                ),
+                direction = "forward",
+                steps = 12,
+                trace = FALSE)
+
+```
+
+```{r}
+for.2 %>% summary()
+```
+
+
+
+```{r}
+help <- train_filtered_cent %>% select(c('Sale_Price', 'Neighborhood' , 'Gr_Liv_Area' , 'Total_Bsmt_SF' , 
+    'Overall_Cond' , 'Year_Built' , 'MS_SubClass' , 'Bsmt_Unf_SF' , 'Kitchen_Qual' , 
+    'Sale_Condition' , 'Garage_Area' , 'Fireplaces' , 'Condition_1'))
+empty.mod <- lm(Sale_Price ~ 1, data = help)
+full.mod <- lm(Sale_Price ~ .^2, data = help)
+
+for.2 <- step(empty.mod,
+                scope = list(
+                  lower = empty.mod,
+                  upper = full.mod
+                ),
+                direction = "forward",
+                steps = 12,
+                trace = FALSE)
+
+```
+
+```{r}
+lm.15 <- lm(log(Sale_Price) ~ Neighborhood + Gr_Liv_Area + Kitchen_Qual + 
+    Total_Bsmt_SF + Bsmt_Unf_SF + Overall_Cond + Year_Built + 
+    MS_SubClass + Neighborhood:Gr_Liv_Area + Kitchen_Qual:Total_Bsmt_SF + 
+    Neighborhood:Year_Built + Kitchen_Qual:MS_SubClass, data = help)
+lm.15 %>% plot()
+```
+```{r}
+shapiro.test(residuals(lm.15))
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
