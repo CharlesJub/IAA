@@ -296,3 +296,166 @@ It's also possible to write data out in CSV format. This is useful, since CSV fi
 5. After all the rows are written, close the CSV file.
 
 ## Functions
+A place that stores repeated code to improve clarity and reduce repetition
+
+Functions created using def
+```python
+>>> def avg( num ):  
+... sum = 0  
+... for elem in num:  
+... sum = sum + elem  
+... return float( sum ) / len( num )  
+...
+```
+An argument is an optional input for a function
+
+Recursion: calling a function in itself 
+```python
+>>> def fib( n ):  
+... if n <= 0:  
+... return 0  
+... elif n == 1:  
+... return 1  
+... else:  
+... return fib( n - 1 ) + fib( n - 2 )  
+...  
+>>> print( fib( 0 ) )  
+0  
+>>> print( fib( 2 ) )  
+1  
+>>> print( fib( 20 ) )  
+6765  
+>>> print( fib( 40 ) )  
+102334155
+```
+
+## Numpy
+library that provides advanced mathematical operations
+
+Also uses an array, but a numpy array are all of the same type. Created by:
+- from a Python list,
+- in a pre-defined size containing zeros or ones, or
+- using numpy's `arange()` command, which is analogous to Python's `range()` command.
+```python
+>>> import numpy  
+>>>  
+>>> arr = numpy.array( [ 2, 3, 4 ] )  
+>>> print( arr )  
+[2 3 4]  
+>>> print( type( arr ) )  
+<class 'numpy.ndarray'>  
+>>> arr = numpy.zeros( 5 )  
+>>> print( arr )  
+[0. 0. 0. 0. 0.]  
+>>> arr = numpy.arange( 10, 30, 5 )  
+>>> print( arr )  
+[10 15 20 25]
+```
+Multidimensional arrays: array within arrays
+```python
+>>> import numpy  
+>>>  
+>>> arr = numpy.array( [ [ 1, 2 ], [ 4, 5 ], [ 7, 8 ] ] )  
+>>> print( arr )  
+[[1 2]  
+ [4 5]  
+ [7 8]]  
+>>> print( arr[ 1 ] )  
+[4 5]  
+>>> print( arr[ 1, 1 ] )  
+5  
+>>> print( arr[ -1 ] )  
+[7 8]  
+>>> print( arr[ 1: 3 ] )  
+[[4 5]  
+ [7 8]]  
+>>> print( arr[ 0: 2, 1 ] )  
+[2 5]  
+>>>  
+>>> print( arr.shape )  
+(3, 2)  
+>>> arr = arr.reshape( 2, 3 )  
+>>> print( arr )  
+[[1 2 4]  
+ [5 7 8]  
+>>> print( arr.shape )  
+(2, 3)
+```
+
+> numpy provides access to elements of an array using the standard indexing operator `[ ]`. Negative indices and slicing can be used, similar to Python lists. It's also possible to ask for the _shape_ of an array using `shape()`, which returns the number of rows for a 1D array, or a tuple with the number of rows and columns for a 2D array. It's even possible to _reshape_ an array using `reshape()`, rearranging the array's values into a new (row, column) configuration.
+
+## Pandas
+Built off numpy uses Series, 1D array. 
+
+```python
+>>> import numpy  
+>>> import pandas  
+>>>  
+>>> s = pandas.Series( [ 1, 2, 3 ], [ 'a', 'b', 'c' ] )  
+>>> print( s )  
+a   1  
+b   2  
+c   3  
+dtype: int64  
+>>>  
+>>> d = { 'a': 3.14, 'b': 6.29, 'x': -1.34 }  
+>>> t = pandas.Series( d )  
+>>> print( t )  
+a    3.14  
+x   -1.34  
+b    6.29  
+dtype: float64  
+>>>  
+>>> a = numpy.array( [ 4.5, 5.5, 6.5 ] )  
+>>> u = pandas.Series( a )  
+>>> print( u )  
+0   4.5  
+1   5.5  
+2   6.5  
+dtype: float64
+```
+
+Conditionals on Series: Logic statement returns true false at each element and indexing by that list returns a filtered list where TRUE
+```python
+>>> import numpy  
+>>> import pandas  
+>>>  
+>>> s = pandas.Series( [ 1, 2, 3, 4, 5 ] )  
+>>> idx = ( s > 2 ) & ( s < 5 )  
+>>> print( idx )  
+0   False  
+1   False  
+2    True  
+3    True  
+4   False  
+dtype: bool  
+>>> s_sub = s[ idx ]  
+>>> print( s_sub )  
+2   3  
+3   4  
+dtype: int64
+```
+
+### Dataframe
+2D table with labelled columns and rows. 
+
+```python
+>>> import numpy  
+>>> import pandas  
+>>>  
+>>> d = [ [ 1, 2 ], [ 4, 5 ], [ 7, 8 ] ]  
+>>> df = pandas.DataFrame( d, index = [ 'a', 'b', 'c' ], columns = [ 'C1', 'C2' ] )  
+>>> print( df )  
+   C1  C2  
+a   1   2  
+b   4   5  
+c   7   8
+```
+
+To index a DataFrame:
+- `[ c ]`, return all the values in the column named `c`.
+- `loc[ r ]`, return all the values in the row named `r`.
+- `loc[ r, c ]`, return the value in the row named `r` and the column named `c`.
+- `iloc[ i ]`, return all the values in the DataFrame's `i`-ith row.
+
+
