@@ -246,3 +246,144 @@ Be sure that you have centered any independent variables in polynomial recession
 
 
 ![[Pasted image 20240709135125.png]]
+
+## Model Building and Scoring for Prediction
+Linear regression is a great initial approach 
+Linear regression is BLUE best linear unbiased estimator
+
+Unbiased: On average the guess you are making will be the true coefficient 
+![[Pasted image 20240711090831.png]]
+Best: IF assumption hold, $s_{\hat\beta_j}$ is as small is it can be of all the *unbiased* estimators
+	IF assumption don't hold, we can't say that linear regression is the best 
+
+### Regularized Regression
+Starting to care more about predictive power
+
+Problems with Linear Regression:
+- Assumptions start to fail
+- Multicollinearity concerns
+- Can't deal with more variables than observations (genetic modeling)
+
+Regularized regression puts constraints on the estimated coefficient in our model and shrink these estimates to 0 
+
+Coefficients become biased, but could improve variance of the model
+
+![[Pasted image 20240711092159.png]]
+
+Answers of Biased regression will be slightly off, but we are aiming for better overall estimates
+
+3 Common Approaches - Ridge, LASSO, Elastic Net
+
+OLS:![[Pasted image 20240711092423.png]]
+Regularized regression introduces a penalty term to the minimization, all three approaches use the penalty term with different calculations for penalty
+![[Pasted image 20240711092503.png]]
+#### Ridge Regression 
+Penalty:
+![[Pasted image 20240711092811.png]]
+You are minimizing the $\beta$ values, **Why does smaller $\beta$ values improve average prediction?**
+
+
+- Penalty is controlled by tuning parameter, $\lambda$
+	- If $\lambda = 0$, then OLS
+	- As $\lambda \to \infty$ , coefficients shrink to 0
+```r
+train_reg <- train %>% dplyr::select(Sale_Price, Lot_Area, Street, Bldg_Type, House_Style, Overall_Qual, Roof_Style, Central_Air, First_Flr_SF, Second_Flr_SF, Full_Bath, Half_Bath, Fireplaces, Garage_Area, Gr_Liv_Area, TotRms_AbvGrd) %>% 
+mutate_if(is.numeric, ~replace_na(., mean(., na.rm = TRUE))) 
+
+train_x <- model.matrix(Sale_Price ~ ., data = train_reg)[, -1] 
+train_y <- train_reg$Sale_Price
+```
+Can't use formula approach to defining a model, need to split into x and y data
+We have to create dummy variables ourselves, that is why we use `model.matrix`
+`[, -1]` to remove the intercept column
+*Also need to do this on the test dataset* 
+
+
+Ridge Regression Code:
+```r
+library(glmnet) 
+ames_ridge <- glmnet(x = train_x, y = train_y, alpha = 0) 
+plot(ames_ridge, xvar = "lambda")
+```
+Alpha = 0 for Ridge Regression
+![[RidgeRegression_Plot.png]]
+Don't show this to a client. Only valuable to learn what ridge regression is doing. 
+
+#### Lasso Regression
+![[LASSO_min_SSE.png]]
+Ridge regression approaches 0 asymptotically, LASSO can have coefficients equal to 0
+
+```r
+library(glmnet) 
+ames_lasso <- glmnet(x = train_x, y = train_y, alpha = 1) 
+plot(ames_lasso, xvar = "lambda")
+```
+Alpha = 1 for LASSO
+![[LassoPlot.png]]
+Top x axis is the number of variables in the model
+Can't require LASSO to keep a variable
+
+LASSO will delete levels of a category, meaning that levels that are deleted are grouped with the reference category
+
+When presenting to nontechnical you can say "Here are the variables that are most predictive", just can't talk about specific relationships 
+
+
+#### Elastic Net 
+- LASSO does variable selection. 
+- Ridge keeps all variables (LASSO drops arbitrarily)
+
+Elastic combines both penalty terms
+
+![[ElasticNetMinSSE.png]]
+```r
+library(glmnet) 
+ames_en <- glmnet(x = train_x, y = train_y, alpha = 0.5) 
+plot(ames_en, xvar = "lambda")
+```
+![[ElasticPlot.png]]
+
+#### Optimizing Penalties
+Goal is to pick a $\lambda$ that predicts well but doesn't overfit 
+
+#### Cross-Validation
+Split training data into multiple pieces and training on some splits and evaluating on remaining piece 
+
+![[Statistical Foundationskfold_cross_validation.png]]
+LASSO 
+```r
+ames_lasso_cv <- cv.glmnet(x = train_x, y = train_y, alpha = 1) plot(ames_lasso_cv)
+```
+![[cross_validation_LASSO_plot.png]]
+If  Regularized Regression is better then there would be upward curve
+
+```r
+plot(ames_lasso, xvar = "lambda") 
+abline(v = log(ames_lasso_cv$lambda.1se), col = "red", lty = "dashed") abline(v = log(ames_lasso_cv$lambda.min), col = "black", lty = "dashed")
+```
+
+Important Variables
+```r
+coef(ames_lasso, s=c(ames_lasso_cv$lambda.min,ames_lasso_cv$lambda.1se))
+```
+![[Important Variables.png]]
+
+### Comparing Models
+To score/compare, you do not rerun the algorithm
+
+Test and training need to look the exact same
+
+Test is comparing one or two models and reporting to the client
+
+![[ModelMetrics.png]]
+- Root MSE: Not easily interpretable
+- MAE: Not scale invariant
+- MAPE: Not symmetric
+Report using MAE and MAPE together
+```r
+test %>% 
+mutate(lm_APE = 100*abs((Sale_Price - pred_lm)/Sale_Price)) %>% dplyr::summarise(MAPE_lm = mean(lm_APE))
+```
+
+
+No assumptions but cost of interpretations
+

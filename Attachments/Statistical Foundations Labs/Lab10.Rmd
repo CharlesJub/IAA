@@ -276,6 +276,10 @@ lm.hp %>% AIC()
 
 
 
+```{r}
+regsubsets(Sale_Price~., data = train, nvmax = 12,
+                     method = "seqrep")
+```
 
 
 
