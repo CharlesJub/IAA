@@ -3,7 +3,7 @@ title: "R Notebook"
 output: html_notebook
 ---
 
-
+## Breakout
 ```{r}
 bike <- read.csv('https://raw.githubusercontent.com/IAA-Faculty/statistical_foundations/master/bike.csv')
 ```
@@ -72,6 +72,61 @@ test %>%
   mutate(ridge_APE = 100*abs((cnt - pred)/cnt)) %>% 
   dplyr::summarise(MAPE_ridge = mean(ridge_APE))
 ```
+
+
+## Lab
+
+
+
+```{r load data}
+library(AppliedPredictiveModeling) 
+data(FuelEconomy)
+```
+
+```{r factor vars}
+cars2010_factor <- cars2010 %>% mutate(across(-c(FE, EngDispl), as.factor))
+```
+
+```{r make cars dummy}
+set.seed(123)
+cars2010_reg <- cars2010_factor %>% 
+  mutate_if(is.numeric, ~replace_na(., mean(., na.rm = TRUE))) 
+
+train_x <- model.matrix(FE ~ ., data = cars2010_reg)[, -1] 
+train_y <- cars2010_reg$FE
+```
+
+```{r LASSO}
+cars_lasso <- glmnet(x = train_x, y = train_y, alpha = 1) 
+plot(cars_lasso, xvar = "lambda")
+```
+Perform a CV LASSO to optimize the lambda value. 
+a. What is the value of lambda that minimizes the MSE? 
+0.003793359
+b. What is the value of lambda one standard error above the minimum MSE value?
+0.1428175
+c. How many variables are left at the penalty value that is one standard error above the minimum MSE value (think of variables as a whole, not per category)? (HINT: Look at the coefficients from the model with coef function.)
+11
+
+```{r LASSO CV}
+set.seed(123)
+cars_lasso_cv <- cv.glmnet(x = train_x, y = train_y, alpha = 1) 
+cars_lasso_cv$lambda.min
+cars_lasso_cv$lambda.1se
+important <- abs(coef(cars_lasso, s = c(cars_lasso_cv$lambda.min, cars_lasso_cv$lambda.1se))[,1]) > 0 &
+  abs(coef(cars_lasso, s = c(cars_lasso_cv$lambda.min, cars_lasso_cv$lambda.1se))[,2]) > 0
+
+coef(cars_lasso, s = c(cars_lasso_cv$lambda.min, cars_lasso_cv$lambda.1se))[important,1]
+
+```
+Obtain the variables from the LASSO regression at the penalty value that is one standard error above the minimum MSE value. The multiple linear regression with p-value selection (Lab 6) left the variables EngDispl, NumCyl, Transmission, AirAspirationMethod, NumGears, TransLockup, DriveDesc, IntakeValvePerCyl, CarlineClassDesc, and VarValveLift. 
+a. What variables were left in your LASSO at the 1SE above minimum MSE penalty value? 
+```{r}
+coef(cars_lasso, s = cars_lasso_cv$lambda.1se)[(abs(coef(cars_lasso, s = cars_lasso_cv$lambda.1se)[,1]) > 0), 1]
+```
+b. How does this compare against the variables from the multiple linear regression?
+
+
 
 
 

@@ -1,6 +1,5 @@
 https://www.csc2.ncsu.edu/faculty/healey/msa/python/
 ## Introduction
-Programing language: A 
 
 Compiled Language: When code is converted into machine language by a complier then combined into a executable
 
