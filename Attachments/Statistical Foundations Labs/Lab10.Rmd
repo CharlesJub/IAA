@@ -64,7 +64,7 @@ full.mod <- lm(Sale_Price ~ ., data = train_sel)
                 trace = FALSE)'
 ```
 ```{r}
-for.mod_12 <- step(empty.mod,
+lm.2 <- step(empty.mod,
                 scope = list(
                   lower = empty.mod,
                   upper = full.mod
@@ -75,25 +75,23 @@ for.mod_12 <- step(empty.mod,
 
 ```
 ```{r}
-for.mod_12 %>% summary()
+lm.2 %>% summary()
 ```
 ```{r}
-for.mod_12 %>% plot()
+lm.2 %>% plot()
 ```
 
 ```{r}
-form.transform <- log(Sale_Price) ~ Neighborhood + Gr_Liv_Area + Kitchen_Qual + 
+lm.2.log <- lm(log(Sale_Price) ~ Neighborhood + Gr_Liv_Area + Kitchen_Qual + 
     MS_SubClass + Year_Built + Roof_Matl + Total_Bsmt_SF + Misc_Feature + 
-    Bsmt_Unf_SF + Overall_Cond + Sale_Condition + Mas_Vnr_Area
-
-lm.transform <- lm(form.transform, data=train_sel)
-lm.transform %>% summary()
+    Bsmt_Unf_SF + Overall_Cond + Sale_Condition + Mas_Vnr_Area, data=train_sel)
+lm.2.log %>% summary()
 ```
 ```{r}
-lm.transform %>% plot()
+lm.2.log %>% plot()
 ```
 ```{r}
-ggplot(lm.transform ,aes(x=hatvalues(lm.transform),y=rstudent(lm.transform)))+
+ggplot(lm.2.log ,aes(x=hatvalues(lm.2.log),y=rstudent(lm.2.log)))+
   geom_point()+
   geom_hline(yintercept=3)+
   geom_vline(xintercept=1) +
@@ -103,14 +101,14 @@ ggplot(lm.transform ,aes(x=hatvalues(lm.transform),y=rstudent(lm.transform)))+
 D.cut=4/(nrow(train_sel)-11) 
 n.index=seq(1,nrow(train_sel))
 
-ggplot(lm.transform, aes(n.index, cooks.distance(lm.transform))) +
+ggplot(lm.2.log, aes(n.index, cooks.distance(lm.2.log))) +
   geom_point() +
   geom_hline(yintercept = D.cut)
 ```
 
 
 ```{r}
-train_sel$a <- (cooks.distance(lm.transform) > D.cut) & (rstudent(lm.transform) > 3 | rstudent(lm.transform) < -3)
+train_sel$a <- (cooks.distance(lm.2.log) > D.cut) & (rstudent(lm.2.log) > 3 | rstudent(lm.2.log) < -3)
 
 ```
 
@@ -120,28 +118,16 @@ train_filtered %>% nrow()
 ```
 
 ```{r}
-lm.1 <- lm(form.transform, data = train_filtered)
-summary(lm.1) %>% print()
-lm.1 %>% plot()
+lm.3 <- lm(log(Sale_Price) ~ Neighborhood + Gr_Liv_Area + Kitchen_Qual + 
+    MS_SubClass + Year_Built + Roof_Matl + Total_Bsmt_SF + Misc_Feature + 
+    Bsmt_Unf_SF + Overall_Cond + Sale_Condition + Mas_Vnr_Area, data = train_filtered)
+summary(lm.3) %>% print()
+lm.3 %>% plot()
 ```
 ```{r}
 train_filtered <- train_filtered %>% select(-c("id","a"))
 ```
 
-```{r}
-empty.mod <- lm(Sale_Price ~ 1, data = train_filtered)
-full.mod <- lm(Sale_Price ~ ., data = train_filtered)
-
-fil.for.mod_12 <- step(empty.mod,
-                scope = list(
-                  lower = empty.mod,
-                  upper = full.mod
-                ),
-                direction = "forward",
-                steps = 12,
-                trace = FALSE)
-
-```
 ```{r}
 
 sale_price <- train_filtered %>% select(c("Sale_Price"))
@@ -156,7 +142,7 @@ train_filtered_cent$Sale_Price <- sale_price$Sale_Price
 empty.mod <- lm(Sale_Price ~ 1, data = train_filtered_cent)
 full.mod <- lm(Sale_Price ~ ., data = train_filtered_cent)
 
-fil.for.mod_12 <- step(empty.mod,
+lm.4 <- step(empty.mod,
                 scope = list(
                   lower = empty.mod,
                   upper = full.mod
@@ -167,10 +153,10 @@ fil.for.mod_12 <- step(empty.mod,
 
 ```
 ```{r}
-fil.for.mod_12 %>% plot()
+lm.4 %>% plot()
 ```
 ```{r}
-train_filtered_cent$a <- (cooks.distance(fil.for.mod_12) > D.cut) & (rstudent(fil.for.mod_12) > 3 | rstudent(fil.for.mod_12) < -3)
+train_filtered_cent$a <- (cooks.distance(lm.4) > D.cut) & (rstudent(lm.4) > 3 | rstudent(lm.4) < -3)
 train_filtered_cent2 <- train_filtered_cent %>% filter(a != TRUE)
 ```
 
@@ -178,7 +164,7 @@ train_filtered_cent2 <- train_filtered_cent %>% filter(a != TRUE)
 empty.mod <- lm(Sale_Price ~ 1, data = train_filtered_cent2)
 full.mod <- lm(Sale_Price ~ ., data = train_filtered_cent2)
 
-for.1 <- step(empty.mod,
+lm.5 <- step(empty.mod,
                 scope = list(
                   lower = empty.mod,
                   upper = full.mod
@@ -189,16 +175,16 @@ for.1 <- step(empty.mod,
 ```
 
 ```{r}
-for.1 %>% summary()
+lm.5 %>% summary()
 formula.2 <-  log(Sale_Price) ~ Neighborhood + Gr_Liv_Area + Kitchen_Qual + 
     Total_Bsmt_SF + MS_SubClass + Bsmt_Unf_SF + Year_Built + 
     Overall_Cond + Mas_Vnr_Area + Sale_Condition + Pool_QC + 
     Garage_Area
-log.lm.2 <- lm(formula.2, data=train_filtered_cent2)
-log.lm.2 %>% plot()
+lm.6.log <- lm(formula.2, data=train_filtered_cent2)
+lm.6.log %>% AIC()
 ```
 ```{r}
-vif(log.lm.2)
+vif(lm.6.log)
 ```
 
 
@@ -209,7 +195,7 @@ vif(log.lm.2)
 empty.mod <- lm(log(Sale_Price) ~ 1, data = train_filtered_cent)
 full.mod <- lm(log(Sale_Price) ~ ., data = train_filtered_cent)
 
-for.2 <- step(empty.mod,
+lm.7 <- step(empty.mod,
                 scope = list(
                   lower = empty.mod,
                   upper = full.mod
@@ -221,19 +207,19 @@ for.2 <- step(empty.mod,
 ```
 
 ```{r}
-for.2 %>% summary()
+lm.7 %>% summary()
 ```
 
 
 
 ```{r}
-help <- train_filtered_cent %>% select(c('Sale_Price', 'Neighborhood' , 'Gr_Liv_Area' , 'Total_Bsmt_SF' , 
+final_12 <- train_filtered_cent %>% select(c('Sale_Price', 'Neighborhood' , 'Gr_Liv_Area' , 'Total_Bsmt_SF' , 
     'Overall_Cond' , 'Year_Built' , 'MS_SubClass' , 'Bsmt_Unf_SF' , 'Kitchen_Qual' , 
     'Sale_Condition' , 'Garage_Area' , 'Fireplaces' , 'Condition_1'))
-empty.mod <- lm(Sale_Price ~ 1, data = help)
-full.mod <- lm(Sale_Price ~ .^2, data = help)
+empty.mod <- lm(Sale_Price ~ 1, data = final_12)
+full.mod <- lm(Sale_Price ~ .^2, data = final_12)
 
-for.2 <- step(empty.mod,
+lm.8 <- step(empty.mod,
                 scope = list(
                   lower = empty.mod,
                   upper = full.mod
@@ -245,30 +231,48 @@ for.2 <- step(empty.mod,
 ```
 
 ```{r}
-lm.15 <- lm(log(Sale_Price) ~ Neighborhood + Gr_Liv_Area + Kitchen_Qual + 
+final.lm <- lm(log(Sale_Price) ~ Neighborhood + Gr_Liv_Area + Kitchen_Qual + 
     Total_Bsmt_SF + Bsmt_Unf_SF + Overall_Cond + Year_Built + 
     MS_SubClass + Neighborhood:Gr_Liv_Area + Kitchen_Qual:Total_Bsmt_SF + 
-    Neighborhood:Year_Built + Kitchen_Qual:MS_SubClass, data = help)
-lm.15 %>% plot()
+    Neighborhood:Year_Built + Kitchen_Qual:MS_SubClass, data = train)
+final.lm %>% plot()
 ```
 ```{r}
-shapiro.test(residuals(lm.15))
+shapiro.test(residuals(final.lm))
+```
+```{r}
+ggplot(final.lm, aes(x = .resid)) +
+  geom_histogram()
+  
 ```
 
 
 
 
 
+```{r}
+t.1 <-  train %>% select(c('Sale_Price', 'Neighborhood' , 'Gr_Liv_Area' , 'Total_Bsmt_SF' , 
+    'Overall_Cond' , 'Year_Built' , 'MS_SubClass' , 'Bsmt_Unf_SF' , 'Kitchen_Qual' , 
+    'Sale_Condition' , 'Garage_Area' , 'Fireplaces' , 'Condition_1'))
+
+lm(log(Sale_Price) ~ Neighborhood + Gr_Liv_Area + Kitchen_Qual + 
+    Total_Bsmt_SF + Bsmt_Unf_SF + Overall_Cond + Year_Built + 
+    MS_SubClass + Neighborhood:Gr_Liv_Area + Kitchen_Qual:Total_Bsmt_SF + 
+    Neighborhood:Year_Built + Kitchen_Qual:MS_SubClass,
+    data= t.1) %>% summary()
+
+```
+```{r}
+lm.hp <- lm(log(Sale_Price) ~ Neighborhood + Gr_Liv_Area + I(Gr_Liv_Area^2) +
+                 I(Gr_Liv_Area^3) + I(Gr_Liv_Area^4) + I(Gr_Liv_Area^5) + 
+                 I(Gr_Liv_Area^6) + I(Gr_Liv_Area^7) +Garage_Area +
+                 Kitchen_Qual:MS_SubClass + Overall_Cond + Year_Built, data=train) 
+lm.hp %>% summary()
+lm.hp %>% plot()
+lm.hp %>% AIC()
 
 
-
-
-
-
-
-
-
-
+```
 
 
 
