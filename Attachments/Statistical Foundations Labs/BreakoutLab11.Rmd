@@ -133,6 +133,3 @@ b. How does this compare against the variables from the multiple linear regressi
 
 
 
-
-
-
