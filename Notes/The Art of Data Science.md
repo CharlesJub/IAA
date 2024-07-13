@@ -43,4 +43,29 @@ For question, search literature or ask experts to ensure your question is a good
 For data, preforming the operation to check your assumptions
 
 ### Comparing Expectation to Data
+If you expectations were wrong:
+- Your expectations were wrong and need to be revised
+- Your information was wrong
+
+> One key indicator of how well your data analysis is going is how easy or difficult it is to match the data you collected to your original expectations.
+
+The goal is to have expectations and data that can be easily matched 
+
+*Sharp Hypothesis*: Something that is very specific, that can be verified with the data
+
+### Applying the Epicycle of Analysis Process
+It is okay to start at "Your expectations are that the answer to this question is unknown and that the question is answerable", but you still need to research if the question is possible to answer 
+
+> In reality, interpreting results happens along with model building as well as after you’ve finished building your model, but conceptually they are distinct activities.
+
+> Although it may be disappointing that your report does not fully meet your boss’s needs, getting [[Feedback|feedback]] is a critical part of doing a data analysis, and in fact, we would argue that a good data analysis requires communication, feedback, and then actions in response to the feedback.
+
+## Chapter 3 - Stating and Refining the Question
+**Six Basic Types of Questions:**
+1. Descriptive
+2. Exploratory
+3. Inferential
+4. Predictive
+5. Causal
+6. Mechanistic
 
