@@ -25,3 +25,10 @@ Due: July 24th, 2024
 - Is there a rush hour for airports?
 	- If yes, can anything be done to reduce the delay impact in these times
 - Does engine type impact delays
+- What are the most important factors for delays+taxi time
+
+
+# Learnings and Thoughts about the Process
+- We haven't really used Dr. West as a resource like I expect you would be able to with a real client or practicum company.
+- How to find a balance between meeting with the group often to keep ourselves on track and not wasting group members time by meeting too much.
+- 
