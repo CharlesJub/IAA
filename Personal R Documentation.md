@@ -117,6 +117,12 @@ df %>%
   separate_longer_delim(c(Languages), delim = ",") # Separate Languages column by "," separator
 ```
 [Full Documentation](https://tidyr.tidyverse.org/reference/separate_longer_delim.html)
+
+### `match()`
+
+### `na_if()`
+
+
 ## String Functions
 ### `str_split_fixed()`
 Split string column into character matrix (table) with a column for each split.
@@ -152,6 +158,9 @@ Ways to change capitalization of a string.
 Remove leading and trailing whitespace from a string
 [Full Documentation](https://stringr.tidyverse.org/reference/str_trim.html)
 
+### `word()`
+
+
 ## Misc Tips
 `month.name` is a list in R that can be indexed with each month number. 
 `slice_max(col, n=5)` for top 5 and `slice_min(col, n=5)` for bottom 5 by values of col.
@@ -160,3 +169,4 @@ Remove leading and trailing whitespace from a string
 `unique(Col)` is useful for checking work on qualitative columns.
 `head()` (for first couple of rows) or `sample()` (for random rows) can give you a quick subset of your dataframe to view.
 To get value not in list you can use `!(Value %in% List)` 
+`countrycode(Country, origin = 'country.name', destination = 'iso3c')` 
