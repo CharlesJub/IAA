@@ -63,11 +63,17 @@ It is okay to start at "Your expectations are that the answer to this question i
 ## Chapter 3 - Stating and Refining the Question
 **Six Basic Types of Questions:**
 1. Descriptive
+	Seeks to summarize a characteristic of a set of data
 2. Exploratory
+	Analyze data to see if there are patterns, trends, or relationships between variables 
+	Looking for patterns that would support proposing a hypothesis 
 3. Inferential
+	A question that aims to be able to infer what is true, on average, for a population based on a sample 
 4. Predictive
+	A question that asks what is the expected outcome based on a set of variables.
 5. Causal
+	A causal question asks about whether changing one factor will change another factor, on average, in a population
 6. Mechanistic
-
+	A question that asks *how* the data impacts an outcome 
 
 
