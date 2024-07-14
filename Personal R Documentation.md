@@ -118,6 +118,14 @@ df %>%
 ```
 [Full Documentation](https://tidyr.tidyverse.org/reference/separate_longer_delim.html)
 
+### `seperate_wider_delim()`
+Used to split a string column into multiple rows.
+Example:
+```r
+df %>% 
+  separate_longer_delim(c(Languages), delim = ",") # Separate Languages column by "," separator
+```
+[Full Documentation](https://tidyr.tidyverse.org/reference/separate_longer_delim.html)
 ### `match()`
 
 ### `na_if()`
@@ -160,6 +168,10 @@ Remove leading and trailing whitespace from a string
 
 ### `word()`
 
+
+
+## Date
+### `myd()`
 
 ## Misc Tips
 `month.name` is a list in R that can be indexed with each month number. 
