@@ -167,7 +167,7 @@ Ways to change capitalization of a string.
 ### `str_squish()` or `str_trim()`
 Remove leading and trailing whitespace from a string
 [Full Documentation](https://stringr.tidyverse.org/reference/str_trim.html)
-
+									
 ## Time  
 A lot of functions do the similar things for different time formats, use [lubridate cheatsheet](https://rawgit.com/rstudio/cheatsheets/main/lubridate.pdf)
 
