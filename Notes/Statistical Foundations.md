@@ -422,6 +422,7 @@ Null Hypothesis: There is no association.
 
 Alternative Hypothesis: There is association
 
+Required Sample: 80% or more of the cells in the cross-tabulation table need expected count larger than 5.
 ### $\chi^2$-Distribution
 Characteristics:
 - Bounded Below By Zero
@@ -435,4 +436,87 @@ $$
 $$
 D.F. = (# Rows - 1)(# Columns - 1)
 
+#### R Code
+```r
+chisq.test(table(train$Central_Air, train$Bonus))
+```
 
+### Likelihood Ration Chi-Square Test
+Does same thing as Chi-Square Test
+![[Likelihood Ratio Chi-Square Test.png]]
+
+### Fisher's Exact Test
+When we don't meet the assumption, use Fisher's exact 
+```r
+fisher.test(table(train$Central_Air, train$Bonus))
+```
+Computationally expensive
+
+### Ordinal Compared to Nominal Tests
+Ordinal provides extra information since order matters
+
+Can test for more with ordinal variables. If two ordinal variables can account of linear relationship
+
+#### Mantel-Haenszel Chi-Square Test
+![[Mantel-Haenszel Formula.png]]
+Code:
+```r
+library(vcdExtra) 
+CMHtest(table(train$Central_Air, train$Bonus))$table[1,]
+```
+`[1,]` we just want the first row 
+## Measures of Association
+Chi-Square Tests measures whether an association exists, not the strength
+
+
+### Odds Ration (Only for 2x2 tables - binary vs. binary)
+How likely, in respect to odds, a certain event occurs in one group relative to its occurrence in another
+
+*Odds are not the same as probability*
+$Odds = \frac{p}{1-p}$
+
+What does an odds ratio say? 
+Homes without central air have 22.2 times the odds (22.2 times as likely) to not be bonus eligible as compared to homes with central air.
+
+Code:
+```r
+library(DescTools) 
+OddsRatio(table(train$Central_Air, train$Bonus))
+## [1] 22.18335
+```
+
+### Spearman's Correlation (ordinal vs. ordinal)
+Spearman’s correlation measures the strength of association between two ordinal variables.
+
+```r
+cor.test(x = as.numeric(ordered(train$Central_Air)), 
+		 y =as.numeric(ordered(train$Bonus)), 
+		 method = "spearman")
+## Spearman's rank correlation rho 
+## 
+## data: x and y 
+## S = 1132826666, p-value < 2.2e-16 
+## alternative hypothesis: true rho is not equal to 0 
+## sample estimates: 
+## rho 
+## 0.2121966
+```
+
+
+### Cramer's V (Any size table)
+![[Cramer's V.png]]
+Bounded between 0 and 1 (-1 and 1 for 2x2 scenario) where closer to 0 the weaker the relationship
+
+Used for nominal variables 
+
+Code:
+```r
+assocstats(table(train$Central_Air, train$Bonus))
+## X^2 df P(> X^2) 
+## Likelihood Ratio 121.499 1 0 
+## Pearson 92.351 1 0 
+## 
+## Phi-Coefficient : 0.212 
+## Contingency Coeff.: 0.208 
+## Cramer's V : 0.212
+```
