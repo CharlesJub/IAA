@@ -387,3 +387,52 @@ mutate(lm_APE = 100*abs((Sale_Price - pred_lm)/Sale_Price)) %>% dplyr::summarise
 
 No assumptions but cost of interpretations
 
+# Categorical Data Analysis
+
+## Association
+Association exists between two categorical variables if the distribution of one variables changes when the level (or value) of the other variable changes.
+
+*Is there a hypothesis test to determine association?*
+
+Exploring association 
+
+Visually:
+```r
+ggplot(data = train) +
+	geom_bar(mapping = aes(x = Bonus, fill = Central_Air))
+```
+![[AssosiationVisual.png]]
+
+Table:
+```r
+table(train$Central_Air, train$Bonus)# gives count of a variable
+## 0 1 
+## N 142 5 
+## Y 1069 840
+
+library(gmodels) 
+CrossTable(train$Central_Air, train$Bonus)
+```
+![[CrossTable.png]]
+
+## Test of Association
+How much of a change is required to believe there actually is a difference?
+
+Null Hypothesis: There is no association.
+
+Alternative Hypothesis: There is association
+
+### $\chi^2$-Distribution
+Characteristics:
+- Bounded Below By Zero
+- Right Skewed
+- One set of Degrees of Freedom
+![[Example Chi-Squared Distribution.png]]
+
+#### Equation:
+$$
+\chi^2_P = \sum\limits^R_{i=1}\sum\limits^C_{j=1}\frac{(Obs_{i,j} - Exp_{i,j})^2}{Exp_{i,j}}
+$$
+D.F. = (# Rows - 1)(# Columns - 1)
+
+
