@@ -469,7 +469,7 @@ CMHtest(table(train$Central_Air, train$Bonus))$table[1,]
 Chi-Square Tests measures whether an association exists, not the strength
 
 
-### Odds Ration (Only for 2x2 tables - binary vs. binary)
+### Odds Ratio (Only for 2x2 tables - binary vs. binary)
 How likely, in respect to odds, a certain event occurs in one group relative to its occurrence in another
 
 *Odds are not the same as probability*
@@ -520,3 +520,65 @@ assocstats(table(train$Central_Air, train$Bonus))
 ## Contingency Coeff.: 0.208 
 ## Cramer's V : 0.212
 ```
+
+## Why Not Linear Regression?
+If you predict a 0 or 1 with linear regression you are predicting the probability you get a 1.
+
+```r
+lp.model <- lm(Bonus ~ Gr_Liv_Area, data = train)
+with(train, plot(x = Gr_Liv_Area, 
+				 y = Bonus, 
+				 main = 'OLS Regression?', 
+				 xlab = 'Greater Living Area (Sqft)', 
+				 ylab = 'Bonus Eligibility'))
+abline(lp.model)
+```
+![[lmprob.png]]
+
+
+## Logistic Regression
+**Formula**
+ ![[LogReg.png]]
+ Has desired properties:
+ - The predicted probability will always be between 0 and 1.
+ - The parameter estimates do not enter the model equation linearly.
+ - The rate of change of the probability varies as the X’s vary.
+
+Easier to understand ![[log func easier.png]]
+Left: log of the odds or *logit*
+
+**Assumptions**: 
+Independence of observations
+Logit is linearity related to variables
+
+**Code**
+```r
+ames_logit <- glm(Bonus ~ Gr_Liv_Area, 
+				  data = train, 
+				  family = binomial(link = "logit")) 
+summary(ames_logit)
+```
+
+Can't explain logistic regression with Estimates, need to transform into terms that are interpretable. By using:
+$$ 100 *(e^\hat\beta - 1)$$
+This represents % change in Odds or Odds Ratio
+
+
+![[logit_odds.png]]
+
+**Code to  get odds ratio to intemperate:**
+```r
+100*(exp(cbind(coef(ames_logit), confint(ames_logit)))-1)
+```
+
+Can logtit for airplane delay 
+
+## Assessment of Logistic Regression
+A foundational way to evaluate models are comparing every pair of 0’s and 1’s in the target variable.
+
+Concordant:  How many times is you logistic regression model able to rank correctly when 1
+Discordant: How many times is you logistic regression model able to rank correctly when 0
+Tied: How many times is you logistic regression model able to rank correctly when tied
+
+
+Concorandnce of .5 or lower is pretty bad, like a coin flip

@@ -40,7 +40,18 @@ Question 1. How many unique values of "Car_Make" are there? – (5 points)
 37 unique values of Car_Make
 
 ```{r}
-unique(df_auto$Car_Make) %>% length()
+
+df_auto <-  df_auto %>% mutate(Car_Make = case_when(Car_Make == "toyouta" ~ 'toyota',
+                                        Car_Make == "chevroelt" ~ 'chevrolet',
+                                        Car_Make == "vw" ~ "volkswagen",
+                                        Car_Make == "chevy" ~ "chevrolet",
+                                        Car_Make == "maxda" ~ "mazda",
+                                        Car_Make == "vokswagen" ~ "volkswagen",
+                                        Car_Make == 'mercedes-benz' ~ "mercedes",
+                                        .default = Car_Make)
+                   )
+unique(df_auto$Car_Make) %>% sort()
+
 ```
 
 Question 2. How many variables in "df_auto" are of type character? – (5 points)
