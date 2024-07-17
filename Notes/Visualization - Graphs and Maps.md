@@ -84,3 +84,55 @@ Experiments show that it doesn't work this way
 - **Everything is stored, nothing is compared**
 
 If you prompt someone to look at something they can miss the other aspects of the visualization
+
+
+
+# Guidelines for Graphs
+Graphs are meant to provide insight
+Understand you audience, their visual expertise, and their needs
+
+Graphs are not meant for absolute value determination
+
+## Audience
+- Who is your audience
+	- Defines presentation types they are familiar with
+- What do they know about the data?
+	- Include known data to define context, remove data if it is redundant
+- What do the expect to see?
+	- Defines "uninteresting" results
+- What will they do with the information?
+
+## Message
+- What does the data show
+	- Exploration Show new results 
+	- validation, show that expected results are correct
+	- Presentation, show important results in an easy-to-comprehend manner
+- Is there more than one main message?
+	- Ensure individual messages are clear and memorable
+	- Do not use a single presentation style for multiple messages unless necessary
+- What aspects of the message should be highlighted?
+	- Ensure main point(s) are obvious in the presentation
+
+*Resource: Tufte's PowerPoint Folio*
+
+## Recommendations
+Bar Graph: comparison of items, relationships between items, time series data
+
+Pie Chart: comparison of relative amounts, description of components
+	First slice at 12-o'clock
+	Slices ordered largest to smallest, absent a semantic ordering
+	Don't have 500 categories
+	Relationships between two groups, should use side-by-side bar chart
+
+Line Graph: time series, frequency distribution
+	Implied linear relationship by year if dots are connected, use bar chart if no connection
+	If one line, don't need a label
+	Dual-axis: used to show pattern, need to scale or coordinate axes
+
+Histogram:
+	
+Scatterplot: relationship analysis
+	
+Venn: analysis of uniqueness and commonality (overlap)
+	
+
