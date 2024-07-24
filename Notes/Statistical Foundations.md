@@ -387,3 +387,198 @@ mutate(lm_APE = 100*abs((Sale_Price - pred_lm)/Sale_Price)) %>% dplyr::summarise
 
 No assumptions but cost of interpretations
 
+# Categorical Data Analysis
+
+## Association
+Association exists between two categorical variables if the distribution of one variables changes when the level (or value) of the other variable changes.
+
+*Is there a hypothesis test to determine association?*
+
+Exploring association 
+
+Visually:
+```r
+ggplot(data = train) +
+	geom_bar(mapping = aes(x = Bonus, fill = Central_Air))
+```
+![[AssosiationVisual.png]]
+
+Table:
+```r
+table(train$Central_Air, train$Bonus)# gives count of a variable
+## 0 1 
+## N 142 5 
+## Y 1069 840
+
+library(gmodels) 
+CrossTable(train$Central_Air, train$Bonus)
+```
+![[CrossTable.png]]
+
+## Test of Association
+How much of a change is required to believe there actually is a difference?
+
+Null Hypothesis: There is no association.
+
+Alternative Hypothesis: There is association
+
+Required Sample: 80% or more of the cells in the cross-tabulation table need expected count larger than 5.
+### $\chi^2$-Distribution
+Characteristics:
+- Bounded Below By Zero
+- Right Skewed
+- One set of Degrees of Freedom
+![[Example Chi-Squared Distribution.png]]
+
+#### Equation:
+$$
+\chi^2_P = \sum\limits^R_{i=1}\sum\limits^C_{j=1}\frac{(Obs_{i,j} - Exp_{i,j})^2}{Exp_{i,j}}
+$$
+D.F. = (# Rows - 1)(# Columns - 1)
+
+#### R Code
+```r
+chisq.test(table(train$Central_Air, train$Bonus))
+```
+
+### Likelihood Ration Chi-Square Test
+Does same thing as Chi-Square Test
+![[Likelihood Ratio Chi-Square Test.png]]
+
+### Fisher's Exact Test
+When we don't meet the assumption, use Fisher's exact 
+```r
+fisher.test(table(train$Central_Air, train$Bonus))
+```
+Computationally expensive
+
+### Ordinal Compared to Nominal Tests
+Ordinal provides extra information since order matters
+
+Can test for more with ordinal variables. If two ordinal variables can account of linear relationship
+
+#### Mantel-Haenszel Chi-Square Test
+![[Mantel-Haenszel Formula.png]]
+Code:
+```r
+library(vcdExtra) 
+CMHtest(table(train$Central_Air, train$Bonus))$table[1,]
+```
+`[1,]` we just want the first row 
+## Measures of Association
+Chi-Square Tests measures whether an association exists, not the strength
+
+
+### Odds Ratio (Only for 2x2 tables - binary vs. binary)
+How likely, in respect to odds, a certain event occurs in one group relative to its occurrence in another
+
+*Odds are not the same as probability*
+$Odds = \frac{p}{1-p}$
+
+What does an odds ratio say? 
+Homes without central air have 22.2 times the odds (22.2 times as likely) to not be bonus eligible as compared to homes with central air.
+
+Code:
+```r
+library(DescTools) 
+OddsRatio(table(train$Central_Air, train$Bonus))
+## [1] 22.18335
+```
+
+### Spearman's Correlation (ordinal vs. ordinal)
+Spearman’s correlation measures the strength of association between two ordinal variables.
+
+```r
+cor.test(x = as.numeric(ordered(train$Central_Air)), 
+		 y =as.numeric(ordered(train$Bonus)), 
+		 method = "spearman")
+## Spearman's rank correlation rho 
+## 
+## data: x and y 
+## S = 1132826666, p-value < 2.2e-16 
+## alternative hypothesis: true rho is not equal to 0 
+## sample estimates: 
+## rho 
+## 0.2121966
+```
+
+
+### Cramer's V (Any size table)
+![[Cramer's V.png]]
+Bounded between 0 and 1 (-1 and 1 for 2x2 scenario) where closer to 0 the weaker the relationship
+
+Used for nominal variables 
+
+Code:
+```r
+assocstats(table(train$Central_Air, train$Bonus))
+## X^2 df P(> X^2) 
+## Likelihood Ratio 121.499 1 0 
+## Pearson 92.351 1 0 
+## 
+## Phi-Coefficient : 0.212 
+## Contingency Coeff.: 0.208 
+## Cramer's V : 0.212
+```
+
+## Why Not Linear Regression?
+If you predict a 0 or 1 with linear regression you are predicting the probability you get a 1.
+
+```r
+lp.model <- lm(Bonus ~ Gr_Liv_Area, data = train)
+with(train, plot(x = Gr_Liv_Area, 
+				 y = Bonus, 
+				 main = 'OLS Regression?', 
+				 xlab = 'Greater Living Area (Sqft)', 
+				 ylab = 'Bonus Eligibility'))
+abline(lp.model)
+```
+![[lmprob.png]]
+
+
+## Logistic Regression
+**Formula**
+ ![[LogReg.png]]
+ Has desired properties:
+ - The predicted probability will always be between 0 and 1.
+ - The parameter estimates do not enter the model equation linearly.
+ - The rate of change of the probability varies as the X’s vary.
+
+Easier to understand ![[log func easier.png]]
+Left: log of the odds or *logit*
+
+**Assumptions**: 
+Independence of observations
+Logit is linearity related to variables
+
+**Code**
+```r
+ames_logit <- glm(Bonus ~ Gr_Liv_Area, 
+				  data = train, 
+				  family = binomial(link = "logit")) 
+summary(ames_logit)
+```
+
+Can't explain logistic regression with Estimates, need to transform into terms that are interpretable. By using:
+$$ 100 *(e^\hat\beta - 1)$$
+This represents % change in Odds or Odds Ratio
+
+
+![[logit_odds.png]]
+
+**Code to  get odds ratio to intemperate:**
+```r
+100*(exp(cbind(coef(ames_logit), confint(ames_logit)))-1)
+```
+
+Can logtit for airplane delay 
+
+## Assessment of Logistic Regression
+A foundational way to evaluate models are comparing every pair of 0’s and 1’s in the target variable.
+
+Concordant:  How many times is you logistic regression model able to rank correctly when 1
+Discordant: How many times is you logistic regression model able to rank correctly when 0
+Tied: How many times is you logistic regression model able to rank correctly when tied
+
+
+Concorandnce of .5 or lower is pretty bad, like a coin flip
