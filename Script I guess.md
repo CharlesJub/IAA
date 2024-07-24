@@ -50,9 +50,9 @@
 
 ### Slide 10
 
-**From our analysis, we recommend looking into ATL's traffic management systems for application to other airports.**
+**From our analysis, we recommend looking into Atlanta's traffic management systems for application to other airports.**
 
-**We also suggest focusing on reducing early delays to minimize their snowball effect on future flights.**
+**We also suggest focusing on busy periods early in the day to minimize the snowball effect on future delays.**
 
-Now, Annika will talk about the impacts of weather on delays. 
+Now, Annika will talk about the impacts of weather delays. 
 
