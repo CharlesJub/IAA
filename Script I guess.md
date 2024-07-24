@@ -1,6 +1,6 @@
 ### Slide 1
 
-**Thank you, Cole. We will now look at the ways airports manage traffic, focusing on Taxi Delays and Activity Levels.**
+**Thank you, Cole. To continue looking at ways airports can reduce time on the ground we will look into how airports manage Activity Levels and Taxi Delays.**
 
 ### Slide 2
 
