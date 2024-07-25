@@ -13,7 +13,7 @@
 2. **Normal:** The middle 50%
 3. **Busy:** The top 25%
 
-**It's important to note that activity levels are airport-specific. This means a busy hour at MCO involves fewer flights than a busy hour at ATL.**
+**It's important to note that activity levels are airport-specific. This means an average busy hour at MCO fewer flights than a busy hour at ATL.**
 
 - Activity Level
 - Not Busy: Lowest 25% of hours by traffic
