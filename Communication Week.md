@@ -12,3 +12,10 @@ I have made a lot of friends through a shared interest in hockey. In fact, hocke
 I would love to talk hockey with anyone that is interested and maybe go to a game. 
  
 # 3 Minute Visual Presentation
+
+
+
+# 8 Minute Team Presentation
+## Discussion Questions:
+Democratic citizens are often asked to choose between liberty and security regarding their government’s actions. As a law-abiding citizen of Panoptica, how would you react to the news that your government was deploying a chatbot to protect your cybersecurity? Is it only non-law-abiding citizens that should beware?
+	
