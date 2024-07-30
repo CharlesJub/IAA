@@ -12,6 +12,9 @@ I have made a lot of friends through a shared interest in hockey. In fact, hocke
 I would love to talk hockey with anyone that is interested and maybe go to a game. 
  
 # 3 Minute Visual Presentation
+![](https://nolan-smyth.com/assets/Third_Shot_Success.png)
+##  Mind Map
+![[Communication Week 2024-07-30 14.55.50.excalidraw]]
 
 
 
