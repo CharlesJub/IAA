@@ -15,10 +15,22 @@ I would love to talk hockey with anyone that is interested and maybe go to a gam
 ![](https://nolan-smyth.com/assets/Third_Shot_Success.png)
 ##  Mind Map
 ![[Communication Week 2024-07-30 14.55.50.excalidraw]]
+## Key Points
+### BLUF
+- First advice is usually 3rd shot drop
+- Data says that a player that can use a 3rd shot drop will win 4% more of their serving rallies
+### 3rd Shot
+- 3rd shot is the first big choice of the serving side, it dictates a lot about the rally
+- Two options: Drive: Hard/Deep, Drop: Soft/Shallow
+- 
+### Drive
+- Success is defined by a rally that ends with a point
+- 
 
+### Or Not Drive
+
+### 
 
 
 # 8 Minute Team Presentation
-## Discussion Questions:
-Democratic citizens are often asked to choose between liberty and security regarding their government’s actions. As a law-abiding citizen of Panoptica, how would you react to the news that your government was deploying a chatbot to protect your cybersecurity? Is it only non-law-abiding citizens that should beware?
-	
+
