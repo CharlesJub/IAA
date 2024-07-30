@@ -30,11 +30,13 @@ I would love to talk hockey with anyone that is interested and maybe go to a gam
 - 4% increase in success rate when 3rd shot drive instead of drop
 ### Why not Drive
 - Consistency, you are less likely to have really bad performances over a game when dropping 
+- 26 of the 39 games in the data have a 3rd shot Drop success rate of 35-40%
 - This can be due the fact that when you reduce power you gain control
-- 
+
 ### Takeaways
 - Players should spend more time drilling and using their 3rd shot drive
-- 
+- Part of training the 3rd shot drive is knowing when to use it
+
 
 
 # 8 Minute Team Presentation
