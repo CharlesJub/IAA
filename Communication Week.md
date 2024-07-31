@@ -17,13 +17,13 @@ I would love to talk hockey with anyone that is interested and maybe go to a gam
 ![[Communication Week 2024-07-30 14.55.50.excalidraw]]
 ## Key Points
 ### BLUF
-- First advice is usually 3rd shot drop
+
 - Data says that a player that can use a 3rd shot drop will win 4% more of their serving rallies
 - Data is from 39 pro games totaling in more than 1600 rallies
 ### 3rd Shot
 - 3rd shot is the first big choice of the serving side, it dictates a lot about the rally
 - Two options: Drive: Hard/Deep, Drop: Soft/Shallow
-- Third type of shot called a lob that is not shown because it is rare
+- First advice is usually 3rd shot drop
 ### Drive
 - Success is defined by a rally that ends with a point for the server
 - The average success rate across serving rallies is 39%, shown by the dotted line
