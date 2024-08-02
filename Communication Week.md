@@ -42,3 +42,17 @@ I would love to talk hockey with anyone that is interested and maybe go to a gam
 # 8 Minute Team Presentation
 
 ![[Communication Week 2024-08-01 15.39.38.excalidraw]]
+
+## Key Points
+To implement this technology we think there needs to be improvements in the way privacy is managed
+
+Citizens already worry about the way the government uses their data
+
+84% of adults feel they don't have control over the data that the government collects
+
+We need to make sure that JEREMY does not contribute to civilian distrust 
+
+We identified two key privacy pain points in the way JEREMY manages victim and suspect privacy
+
+
+
