@@ -42,3 +42,7 @@ I would love to talk hockey with anyone that is interested and maybe go to a gam
 # 8 Minute Team Presentation
 
 ![[Communication Week 2024-08-01 15.39.38.excalidraw]]
+
+## Key Points of Privacy:
+
+To be able to use this technology we need to improve on the 
