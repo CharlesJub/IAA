@@ -20,3 +20,6 @@ Decide what goals are and when the goals should be evaluated
 
 It is important that everyone knows the goals and how the team is doing in meeting the goals, even if the team member is not the key person for that goal. Example: Communications Lead should know how the coding part of the project is going
 
+Important to make sure the team is orientated to the teams goals 
+
+
