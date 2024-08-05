@@ -43,6 +43,7 @@ I would love to talk hockey with anyone that is interested and maybe go to a gam
 
 ![[Communication Week 2024-08-01 15.39.38.excalidraw]]
 
+<<<<<<< HEAD
 ## Key Points
 To implement this technology we think there needs to be improvements in the way privacy is managed
 
@@ -56,3 +57,12 @@ We identified two key privacy pain points in the way JEREMY manages victim and s
 
 
 
+=======
+## Key Points of Privacy:
+
+To be able to use this technology we need to improve on the 
+>>>>>>> origin/main
+
+
+
+# Feedback for Final
