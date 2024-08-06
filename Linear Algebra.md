@@ -207,3 +207,24 @@ $$
 
 ## Linear Combination
 TODO: Come back to this 
+
+# Quiz: Vectors and Matrices
+![[Linear Algebraq1.png]]
+$$
+\begin{bmatrix} 4 + -2 \\ 1 + 2 \end{bmatrix} = \begin{bmatrix} 2 \\ 3 \end{bmatrix}
+$$
+![[Linear Algebraq2.png]]
+$$
+2 \cdot \begin{bmatrix} 1 \\ 3 \end{bmatrix} = \begin{bmatrix} 2 \\ 6 \end{bmatrix}
+$$
+![[Linear Algebraq4.png]]
+$$
+\begin{bmatrix} 2 \cdot 2 + 2 \cdot 4 \\ 3 \cdot 2 + -1 \cdot 4 \end{bmatrix} = \begin{bmatrix} 12 \\ 2 \end{bmatrix}
+$$
+*What is the difference between a point and a vector?*
+A point is a physical location in (hyper)space. A vector is a direction and a distance.
+# Quiz: Matrix Multiplication
+![[Linear Algebraa2a1.png]]
+$$
+\begin{bmatrix} (1*6 + 3*1 + 9*2) \ (1*7 + 3*-4+9*3) \\ (2*6 + 7*1 + -1*2) \ (2*7 + 7*-4+-1*3) \end{bmatrix} = \begin{bmatrix} 27 \ 22 \\ 17 \ -17 \end{bmatrix}
+$$
